@@ -8,7 +8,7 @@ public class PlayerMovement : MonoBehaviour {
     private NavMeshAgent agent;
     private int floorMask;
     private Ray ray;
-    private RaycastHit floorHit;
+    private RaycastHit rayHit;
     // Use this for initialization
     void Start () {
         agent = GetComponent<NavMeshAgent>();
@@ -30,10 +30,14 @@ public class PlayerMovement : MonoBehaviour {
         ray = Camera.main.ScreenPointToRay(Input.GetTouch(0).position);
 
 #endif
-        if(Physics.Raycast(ray,out floorHit, 100f, floorMask))
+        if(Physics.Raycast(ray,out rayHit, 100f, floorMask))
         {
-            GoToPoint(floorHit.point);
+            GoToPoint(rayHit.point);
         }
+       /* else if(Physics.Raycast(ray, out rayHit, 100f, 8))
+        {
+
+        }*/
     }
     private void GoToPoint(Vector3 point)
     {

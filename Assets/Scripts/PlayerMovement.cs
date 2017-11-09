@@ -7,15 +7,10 @@ public class PlayerMovement : MonoBehaviour {
 
     private NavMeshAgent agent;
     
-    // Use this for initialization
-    void Start () {
+    private void Start () {
         agent = GetComponent<NavMeshAgent>();
     }
-	
-	// Update is called once per frame
-	void Update () {
-        
-	}
+
 
     public void GoToPoint(Vector3 point)
     {

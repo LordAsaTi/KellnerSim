@@ -10,14 +10,14 @@ public class RaycastHandler : MonoBehaviour {
     private RaycastHit rayHit;
     private GameObject activePlayer;
     // Use this for initialization
-    void Start () {
+    private void Start () {
         floorMask = LayerMask.GetMask("Floor");
         playerMask = LayerMask.GetMask("Player");
         activePlayer = GameObject.FindGameObjectWithTag("ActivePlayer");
     }
 	
 	// Update is called once per frame
-	void Update () {
+	private void Update () {
         getInputPosition();
 	}
     private void getInputPosition()
@@ -47,5 +47,8 @@ public class RaycastHandler : MonoBehaviour {
         {
             activePlayer.GetComponent<PlayerMovement>().GoToPoint(rayHit.point);
         }
+
+
+        
     }
 }

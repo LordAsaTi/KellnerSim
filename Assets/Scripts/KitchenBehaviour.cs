@@ -4,11 +4,8 @@ using UnityEngine;
 
 public class KitchenBehaviour : MonoBehaviour {
 
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
+    private string[] lines = { "hello" };
+
 	private void OnTriggerEnter(Collider coll)
     {
         Debug.Log("Hello There");
@@ -16,5 +13,6 @@ public class KitchenBehaviour : MonoBehaviour {
         {
             Debug.Log("General Kenobi");
         }
+        DialogueSystem.Instance.AddNewDialogue(lines, "kitchen");
     }
 }

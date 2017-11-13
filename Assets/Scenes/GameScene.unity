@@ -2452,6 +2452,11 @@ MonoBehaviour:
   - {fileID: 896874556}
   - {fileID: 494089638}
   - {fileID: 1217933850}
+  tableArray:
+  - {fileID: 12770710}
+  - {fileID: 934511633}
+  - {fileID: 778628324}
+  - {fileID: 1762898031}
   guestPrefab: {fileID: 1550940867078288, guid: 0937032fa4ea10b42932800bbbd04f19,
     type: 2}
   guestSpawnPoint: {fileID: 1526991098}

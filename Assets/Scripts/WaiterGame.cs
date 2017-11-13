@@ -5,6 +5,7 @@ using UnityEngine;
 public class WaiterGame : MonoBehaviour {
 
     public Transform[] chairArray;
+    public Transform[] tableArray;
     public GameObject guestPrefab;
     public Transform guestSpawnPoint;
 
@@ -18,6 +19,9 @@ public class WaiterGame : MonoBehaviour {
             freeChair[i] = true;
         }
         SpawnGuest();
+        SpawnGuest();
+        SpawnGuest();
+        SpawnGuest();
 
     }
 	
@@ -28,7 +32,10 @@ public class WaiterGame : MonoBehaviour {
     {
         GameObject guest = Instantiate(guestPrefab, guestSpawnPoint);
         int chairInt = (int)Random.Range(0, chairArray.Length);
-        guest.GetComponent<GuestBehaviour>().SetChair(chairArray[CheckChair(chairInt)].position);
+        Vector3 chairPosition = chairArray[CheckChair(chairInt)].position;
+
+        guest.GetComponent<GuestBehaviour>().SetChair(chairPosition);
+        guest.GetComponent<GuestBehaviour>().tableTrans = GetClosestTable(tableArray, chairPosition);
     }
 
     private int CheckChair(int chairInt)
@@ -51,4 +58,21 @@ public class WaiterGame : MonoBehaviour {
 
         }
     }
+    private Transform GetClosestTable(Transform[] tables, Vector3 posi)
+    {
+        Transform tMin = null;
+        float minDist = Mathf.Infinity;
+        Vector3 currentPos = transform.position;
+        foreach (Transform t in tables)
+        {
+            float dist = Vector3.Distance(t.position, posi);
+            if (dist < minDist)
+            {
+                tMin = t;
+                minDist = dist;
+            }
+        }
+        return tMin;
+    }
+
 }

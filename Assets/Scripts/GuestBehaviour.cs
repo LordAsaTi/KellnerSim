@@ -11,7 +11,7 @@ public class GuestBehaviour : MonoBehaviour {
     public GameObject bubble;
     private string guestName;
     private string order;
-
+    float counter = 0;
 
     private void Awake () {
         agent = GetComponent<NavMeshAgent>();
@@ -25,10 +25,12 @@ public class GuestBehaviour : MonoBehaviour {
         {
             LookAtTable();
             animator.SetTrigger("Seated");
-            StartCoroutine(Waiting(3f));
+            StartCoroutine(Waiting(Random.Range(5, 15)));
             
         }
 
+        bubble.transform.eulerAngles = new Vector3(0, -counter, 0);     //rotation works, but -transform.eulerAngles.y does not
+        counter++;
     }
     public void SetChair(Vector3 destinitionPoint)
     {
@@ -37,7 +39,6 @@ public class GuestBehaviour : MonoBehaviour {
     private void LookAtTable()
     {
         transform.LookAt(tableTrans);
-        //bubble.transform.eulerAngles.Set(Camera.main.transform.rotation.eulerAngles.x, -this.transform.eulerAngles.y, 0);
     }
     private IEnumerator Waiting(float waitTime)
     {
@@ -51,6 +52,7 @@ public class GuestBehaviour : MonoBehaviour {
         if (animator.GetCurrentAnimatorStateInfo(0).IsName("Ordering") && coll.tag == "ActivePlayer")
         {
             DialogueSystem.Instance.AddNewDialogue(order, guestName);
+            animator.SetTrigger("Ordered");
         }
     }
 

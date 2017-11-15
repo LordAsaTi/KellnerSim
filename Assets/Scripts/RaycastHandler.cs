@@ -24,9 +24,12 @@ public class RaycastHandler : MonoBehaviour {
 	
 	// Update is called once per frame
 	private void Update () {
-        getInputPosition();
+        if(!DialogueSystem.Instance.dialogueActive)
+        {
+         GetInputPosition();
+        }
 	}
-    private void getInputPosition()
+    private void GetInputPosition()
     {
 #if UNITY_EDITOR
         if (Input.GetMouseButton(0))
@@ -48,6 +51,9 @@ public class RaycastHandler : MonoBehaviour {
                 activePlayer = hitObject;
                 playerMove = activePlayer.GetComponent<PlayerMovement>();
                 activePlayer.tag = "ActivePlayer";
+
+                activePlayer.GetComponent<Collider>().enabled = false;
+                activePlayer.GetComponent<Collider>().enabled = true;
             }
         }
         else if (Physics.Raycast(ray, out rayHit, 100f, guestMask))

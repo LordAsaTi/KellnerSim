@@ -8,6 +8,8 @@ public class DialogueSystem : MonoBehaviour
 
     public static DialogueSystem Instance { get; set; }
 
+    public bool dialogueActive;
+
     public GameObject dialoguePanel;
     public GameObject selectPanel;
     private GameObject choicePanel;
@@ -22,6 +24,8 @@ public class DialogueSystem : MonoBehaviour
 
     private void Awake()
     {
+        dialogueActive = false;
+
         dialoguePanel.SetActive(true);
         selectPanel.SetActive(true);
 
@@ -65,6 +69,8 @@ public class DialogueSystem : MonoBehaviour
         dialogueText.text = dialogueLines[dialogueIndex];
         nameText.text = npcName;
         dialoguePanel.SetActive(true);
+
+        dialogueActive = true;
     }
     public void ContinueDialogue()
     {
@@ -75,13 +81,21 @@ public class DialogueSystem : MonoBehaviour
         }
         else
         {
-            dialoguePanel.SetActive(false);
-            if (selectPanel != null)
-            {
-                selectPanel.SetActive(false);
-                RemoveChoices();
-            }
+            CloseDialogue();
         }
+    }
+    public void CloseDialogue()
+    {
+        if (selectPanel != null)
+        {
+            selectPanel.SetActive(false);
+            RemoveChoices();
+        }
+        dialoguePanel.SetActive(false);
+        //StopStartPlayerMovement(true);
+        continueButton.gameObject.SetActive(true);
+
+        dialogueActive = false;
     }
 
     public void AddChoice(string choice, UnityEngine.Events.UnityAction method)

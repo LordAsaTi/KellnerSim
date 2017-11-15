@@ -30,7 +30,7 @@ public class KitchenBehaviour : MonoBehaviour {
             {
                     string foodname = foodChoices[i];
 
-                    DialogueSystem.Instance.AddChoice(foodname, delegate { StartCoroutine(FoodProcessing(8f, foodname)); });
+                    DialogueSystem.Instance.AddChoice(foodname, delegate { StartCoroutine(FoodProcessing(8f, foodname)); DialogueSystem.Instance.CloseDialogue(); });
             }
             DialogueSystem.Instance.CreateChoice();
 

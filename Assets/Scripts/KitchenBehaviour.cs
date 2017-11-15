@@ -5,16 +5,48 @@ using UnityEngine;
 public class KitchenBehaviour : MonoBehaviour {
 
 
-    private string[] lines = { "hello" };
+    private string[] lines;
+    private string[] foodChoices;
+    private bool foodReady;
+    private string kitchenName;
 
-	private void OnTriggerEnter(Collider coll)
+    private void Start()
     {
-        Debug.Log("Hello There");
-        if(coll.tag == "Player")
+        lines = new string[]{ "Hallo", "Was bestellt der Kunde?", "Die Küche ist beschäftigt" };
+        foodChoices = WaiterGame.Instance.GetFoodArray();
+        foodReady = true;
+        kitchenName = "Küche";
+    }
+
+    private void OnTriggerEnter(Collider coll)
+    {
+        if(coll.tag == "ActivePlayer")
         {
-            Debug.Log("General Kenobi");
+            if (foodReady)
+            {
+            DialogueSystem.Instance.AddNewDialogue(lines[1], kitchenName);
+
+            for(int i = 0; i < foodChoices.Length; i++)
+            {
+                    string foodname = foodChoices[i];
+
+                    DialogueSystem.Instance.AddChoice(foodname, delegate { StartCoroutine(FoodProcessing(8f, foodname)); });
+            }
+            DialogueSystem.Instance.CreateChoice();
+
+            }
+            else
+            {
+                DialogueSystem.Instance.AddNewDialogue(lines[2], kitchenName);
+            }
         }
-        DialogueSystem.Instance.AddNewDialogue(lines, "kitchen");
-        //DialogueSystem.Instance.AddChoice();
+        
+    }
+
+    private IEnumerator FoodProcessing(float waitTime, string foodName)
+    {
+        foodReady = false;
+        yield return new WaitForSeconds(waitTime);
+        foodReady = true;
     }
 }

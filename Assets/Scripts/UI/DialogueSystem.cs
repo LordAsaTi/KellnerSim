@@ -59,10 +59,6 @@ public class DialogueSystem : MonoBehaviour
         string[] lines = { line };
         AddNewDialogue(lines, npcName);
     }
-    public void AddChoice(string choice)
-    {
-
-    }
 
     public void CreateDialogue()
     {
@@ -83,8 +79,26 @@ public class DialogueSystem : MonoBehaviour
             if (selectPanel != null)
             {
                 selectPanel.SetActive(false);
-                //removeChoices();
+                RemoveChoices();
             }
+        }
+    }
+
+    public void AddChoice(string choice, UnityEngine.Events.UnityAction method)
+    {
+        Button button = Instantiate(buttonPref, choicePanel.transform);
+        button.transform.GetChild(0).GetComponent<Text>().text = choice;
+        button.GetComponent<Button>().onClick.AddListener(method);
+    }
+    public void CreateChoice()
+    {
+        selectPanel.SetActive(true);
+    }
+    private void RemoveChoices()
+    {
+        for(int i = 0; i < choicePanel.transform.childCount; i++)
+        {
+            Destroy(choicePanel.transform.GetChild(i).gameObject);
         }
     }
 }

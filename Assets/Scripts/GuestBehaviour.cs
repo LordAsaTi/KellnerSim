@@ -7,18 +7,23 @@ public class GuestBehaviour : MonoBehaviour {
 
     private NavMeshAgent agent;
     public Transform tableTrans;
+    private Animator animator;
+    public GameObject bubble;
 
 
-    void Awake () {
+    private void Awake () {
         agent = GetComponent<NavMeshAgent>();
+        animator = GetComponent<Animator>();
 	}
 	
 	
-	void Update () {
+	private void Update () {
 		
-        if(agent.velocity == Vector3.zero)
+        if(agent.velocity == Vector3.zero && animator.GetCurrentAnimatorStateInfo(0).IsName("SearchSeat"))
         {
             LookAtTable();
+            animator.SetTrigger("Seated");
+            
         }
 	}
     public void SetChair(Vector3 destinitionPoint)
@@ -28,5 +33,6 @@ public class GuestBehaviour : MonoBehaviour {
     private void LookAtTable()
     {
         transform.LookAt(tableTrans);
+        //bubble.transform.eulerAngles.Set(Camera.main.transform.rotation.eulerAngles.x, -this.transform.eulerAngles.y, 0);
     }
 }

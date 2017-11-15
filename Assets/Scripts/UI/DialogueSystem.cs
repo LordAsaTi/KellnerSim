@@ -51,6 +51,11 @@ public class DialogueSystem : MonoBehaviour
         this.npcName = npcName;
         CreateDialogue();
     }
+    public void AddNewDialogue(string line, string npcName)
+    {
+        string[] lines = { line };
+        AddNewDialogue(lines, npcName);
+    }
     public void CreateDialogue()
     {
         dialogueText.text = dialogueLines[dialogueIndex];

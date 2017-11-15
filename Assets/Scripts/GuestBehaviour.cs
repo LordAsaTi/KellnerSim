@@ -9,6 +9,8 @@ public class GuestBehaviour : MonoBehaviour {
     public Transform tableTrans;
     private Animator animator;
     public GameObject bubble;
+    private string guestName;
+    private string order;
 
 
     private void Awake () {
@@ -48,8 +50,16 @@ public class GuestBehaviour : MonoBehaviour {
     {
         if (animator.GetCurrentAnimatorStateInfo(0).IsName("Ordering") && coll.tag == "ActivePlayer")
         {
-            //Bestellung über DialogueSystem
-            Debug.Log("Bestellen bitte!");
+            DialogueSystem.Instance.AddNewDialogue(order, guestName);
         }
+    }
+
+    public void SetOrder(string food)
+    {
+        order = food;
+    }
+    public void SetName(string name)
+    {
+        guestName = name;
     }
 }

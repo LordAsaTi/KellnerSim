@@ -37,6 +37,7 @@ GameObject:
   - component: {fileID: 4809435727774456}
   - component: {fileID: 33862150415701652}
   - component: {fileID: 65268827247585792}
+  - component: {fileID: 135013157322227518}
   - component: {fileID: 23402287375614034}
   - component: {fileID: 54506038152490630}
   - component: {fileID: 195522964376814990}
@@ -259,6 +260,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tableTrans: {fileID: 0}
   bubble: {fileID: 1510990253524318}
+--- !u!135 &135013157322227518
+SphereCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1550940867078288}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 1
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!195 &195522964376814990
 NavMeshAgent:
   m_ObjectHideFlags: 1

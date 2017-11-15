@@ -6,14 +6,20 @@ public class RaycastHandler : MonoBehaviour {
 
     private int floorMask;
     private int playerMask;
+    private int guestMask;
     private Ray ray;
     private RaycastHit rayHit;
     private GameObject activePlayer;
+    private PlayerMovement playerMove;
+
+
     // Use this for initialization
     private void Start () {
         floorMask = LayerMask.GetMask("Floor");
         playerMask = LayerMask.GetMask("Player");
+        guestMask = LayerMask.GetMask("Guest");
         activePlayer = GameObject.FindGameObjectWithTag("ActivePlayer");
+        playerMove = activePlayer.GetComponent<PlayerMovement>();
     }
 	
 	// Update is called once per frame
@@ -40,12 +46,20 @@ public class RaycastHandler : MonoBehaviour {
             {
                 activePlayer.tag = "Player";
                 activePlayer = hitObject;
+                playerMove = activePlayer.GetComponent<PlayerMovement>();
                 activePlayer.tag = "ActivePlayer";
             }
         }
+        else if (Physics.Raycast(ray, out rayHit, 100f, guestMask))
+        {
+            playerMove.SetStoppingDistance(1f);
+            playerMove.GoToPoint(rayHit.transform.position);
+
+        }
         else if (Physics.Raycast(ray, out rayHit, 100f, floorMask))
         {
-            activePlayer.GetComponent<PlayerMovement>().GoToPoint(rayHit.point);
+            playerMove.SetStoppingDistance(0f);
+            playerMove.GoToPoint(rayHit.point);
         }
 
 

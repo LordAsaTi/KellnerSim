@@ -23,9 +23,11 @@ public class GuestBehaviour : MonoBehaviour {
         {
             LookAtTable();
             animator.SetTrigger("Seated");
+            StartCoroutine(Waiting(3f));
             
         }
-	}
+
+    }
     public void SetChair(Vector3 destinitionPoint)
     {
         agent.SetDestination(destinitionPoint);
@@ -34,5 +36,20 @@ public class GuestBehaviour : MonoBehaviour {
     {
         transform.LookAt(tableTrans);
         //bubble.transform.eulerAngles.Set(Camera.main.transform.rotation.eulerAngles.x, -this.transform.eulerAngles.y, 0);
+    }
+    private IEnumerator Waiting(float waitTime)
+    {
+        yield return new WaitForSeconds(waitTime);
+        animator.SetTrigger("Ready");
+        Debug.Log("ready");
+    }
+
+    private void OnTriggerEnter(Collider coll)
+    {
+        if (animator.GetCurrentAnimatorStateInfo(0).IsName("Ordering") && coll.tag == "ActivePlayer")
+        {
+            //Bestellung über DialogueSystem
+            Debug.Log("Bestellen bitte!");
+        }
     }
 }

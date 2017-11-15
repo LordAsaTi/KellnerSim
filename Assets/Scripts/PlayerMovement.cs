@@ -16,4 +16,9 @@ public class PlayerMovement : MonoBehaviour {
     {
         agent.SetDestination(point);
     }
+
+    public void SetStoppingDistance(float distance)
+    {
+        agent.stoppingDistance = distance;
+    }
 }

@@ -10,11 +10,13 @@ public class DialogueSystem : MonoBehaviour
 
     public GameObject dialoguePanel;
     public GameObject selectPanel;
+    private GameObject choicePanel;
     public List<string> dialogueLines = new List<string>();
     private int dialogueIndex = 0;
     private string npcName = "Empty";
     private Text dialogueText;
     private Button continueButton;
+    public Button buttonPref;
     private Text nameText;
 
 
@@ -26,6 +28,7 @@ public class DialogueSystem : MonoBehaviour
         dialogueText = dialoguePanel.transform.GetChild(0).GetComponent<Text>();
         continueButton = dialoguePanel.transform.GetChild(1).GetComponent<Button>();
         nameText = dialoguePanel.transform.GetChild(2).GetComponent<Text>();
+        choicePanel = selectPanel.transform.GetChild(0).GetChild(0).gameObject;
 
         continueButton.onClick.AddListener(delegate { ContinueDialogue(); });
 
@@ -56,6 +59,11 @@ public class DialogueSystem : MonoBehaviour
         string[] lines = { line };
         AddNewDialogue(lines, npcName);
     }
+    public void AddChoice(string choice)
+    {
+
+    }
+
     public void CreateDialogue()
     {
         dialogueText.text = dialogueLines[dialogueIndex];

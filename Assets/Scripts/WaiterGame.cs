@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class WaiterGame : MonoBehaviour {
 
+    public static WaiterGame Instance { get; set; }
+
+
     public Transform[] chairArray;
     public Transform[] tableArray;
     public GameObject guestPrefab;
@@ -11,16 +14,30 @@ public class WaiterGame : MonoBehaviour {
     public int guestspawns;
     public string[] foodArray;
     public string[] guestNames;
-
+    private bool[] freeName;
     private bool[] freeChair;
 
     private void Start () {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+        }
+        else
+        {
+            Instance = this;
+        }
 
+        freeName = new bool[guestNames.Length];
+        for (int i = 0; i < freeName.Length; i++)
+        {
+            freeName[i] = true;
+        }
         freeChair = new bool[chairArray.Length];
         for (int i = 0; i < freeChair.Length; i++)
         {
             freeChair[i] = true;
         }
+
         for(int i = 0; i < guestspawns; i++)
         {
             SpawnGuest();
@@ -28,14 +45,12 @@ public class WaiterGame : MonoBehaviour {
     
     }
 	
-	private void Update () {
-		
-	}
     private void SpawnGuest()
     {
         GameObject guest = Instantiate(guestPrefab, guestSpawnPoint);
         int chairInt = (int)Random.Range(0, chairArray.Length);
-        Vector3 chairPosition = chairArray[CheckChair(chairInt)].position;
+        int nameInt = (int)Random.Range(0, guestNames.Length);
+        Vector3 chairPosition = chairArray[CheckFree(chairInt, freeChair)].position;
 
         GuestBehaviour guestBehaviour = guest.GetComponent<GuestBehaviour>();
 
@@ -43,26 +58,27 @@ public class WaiterGame : MonoBehaviour {
         guestBehaviour.tableTrans = GetClosestTable(tableArray, chairPosition);
 
         guestBehaviour.SetOrder(foodArray[Random.Range(0, foodArray.Length)]);
-        guestBehaviour.SetName(guestNames[Random.Range(0, guestNames.Length)]);
+
+        guestBehaviour.SetName(guestNames[CheckFree(nameInt, freeName)]);
 
     }
 
-    private int CheckChair(int chairInt)
+    private int CheckFree(int index, bool[] item)
     {
-        if (freeChair[chairInt])
+        if (item[index])
         {
-            freeChair[chairInt] = false;
-            return chairInt;
+            item[index] = false;
+            return index;
         }
         else
         {
-            if (chairInt == 0)
+            if (index == 0)
             {
-                return CheckChair(freeChair.Length - 1);
+                return CheckFree(item.Length - 1, item);
             }
             else
             {
-                return CheckChair(chairInt - 1);
+                return CheckFree(index - 1, item);
             }
 
         }
@@ -82,6 +98,10 @@ public class WaiterGame : MonoBehaviour {
             }
         }
         return tMin;
+    }
+    public string[] GetFoodArray()
+    {
+        return foodArray;
     }
 
 }

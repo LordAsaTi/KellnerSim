@@ -7,14 +7,7 @@ public class PlayerBehaviour : MonoBehaviour {
     
     private string heldItem;
 
-	void Start () {
-		
-	}
 	
-	void Update () {
-		
-	}
-
     public void SetHeldItem(string itemName)
     {
         heldItem = itemName;
@@ -22,5 +15,9 @@ public class PlayerBehaviour : MonoBehaviour {
     public string GetHeldItem()
     {
         return heldItem;
+    }
+    public void RemoveHeldItem()
+    {
+        heldItem = null;
     }
 }

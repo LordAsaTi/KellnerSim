@@ -31,6 +31,8 @@ public class GuestBehaviour : MonoBehaviour {
 
         bubble.transform.eulerAngles = new Vector3(0, -counter, 0);     //rotation works, but -transform.eulerAngles.y does not
         counter++;
+        
+
     }
     public void SetChair(Vector3 destinitionPoint)
     {
@@ -49,11 +51,31 @@ public class GuestBehaviour : MonoBehaviour {
 
     private void OnTriggerEnter(Collider coll)
     {
-        if (animator.GetCurrentAnimatorStateInfo(0).IsName("Ordering") && coll.tag == "ActivePlayer")
+        if(coll.tag == "ActivePlayer")
         {
-            DialogueSystem.Instance.AddNewDialogue(order, guestName);
-            animator.SetTrigger("Ordered");
+            PlayerBehaviour playerBehaviour = coll.GetComponent<PlayerBehaviour>();
+
+            if (animator.GetCurrentAnimatorStateInfo(0).IsName("Ordering"))
+            {
+                DialogueSystem.Instance.AddNewDialogue(order + ", bitte.", guestName);
+                animator.SetTrigger("Ordered");
+            }
+            else if (animator.GetCurrentAnimatorStateInfo(0).IsName("WaitingForFood"))
+            {
+                if (playerBehaviour.GetHeldItem() == order)
+                {
+                    animator.SetTrigger("Ready"); // nochmal überdenken -> hier müsste eigentlich ne coroutin Waiting() starten  also ein state später;
+                    DialogueSystem.Instance.AddNewDialogue("Danke", guestName);
+                    playerBehaviour.RemoveHeldItem();
+
+                }
+                else
+                {
+                    DialogueSystem.Instance.AddNewDialogue("Ich hatte " + order + " bestellt!", guestName);
+                }
+            }
         }
+        
     }
 
     public void SetOrder(string food)

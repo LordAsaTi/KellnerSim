@@ -8,13 +8,16 @@ public class KitchenBehaviour : MonoBehaviour {
     private string[] lines;
     private string[] foodChoices;
     private bool foodReady;
+    private bool gotFood;
     private string kitchenName;
+    private string orderedFood;
 
     private void Start()
     {
-        lines = new string[]{ "Hallo", "Was bestellt der Kunde?", "Die Küche ist beschäftigt" };
+        lines = new string[]{ "Hallo", "Was bestellt der Kunde?", "Die Küche ist beschäftigt", " ist fertig!" };
         foodChoices = WaiterGame.Instance.GetFoodArray();
         foodReady = true;
+        gotFood = true;
         kitchenName = "Küche";
     }
 
@@ -24,15 +27,24 @@ public class KitchenBehaviour : MonoBehaviour {
         {
             if (foodReady)
             {
-            DialogueSystem.Instance.AddNewDialogue(lines[1], kitchenName);
+                if (gotFood)
+                {
+                    DialogueSystem.Instance.AddNewDialogue(lines[1], kitchenName);
 
-            for(int i = 0; i < foodChoices.Length; i++)
-            {
-                    string foodname = foodChoices[i];
+                    for (int i = 0; i < foodChoices.Length; i++)
+                    {
+                        string foodname = foodChoices[i];
 
-                    DialogueSystem.Instance.AddChoice(foodname, delegate { StartCoroutine(FoodProcessing(8f, foodname)); DialogueSystem.Instance.CloseDialogue(); });
-            }
-            DialogueSystem.Instance.CreateChoice();
+                        DialogueSystem.Instance.AddChoice(foodname, delegate { StartCoroutine(FoodProcessing(8f, foodname)); DialogueSystem.Instance.CloseDialogue(); });
+                    }
+                    DialogueSystem.Instance.CreateChoice();
+                }
+                else
+                {
+                    DialogueSystem.Instance.AddNewDialogue(orderedFood + lines[3],kitchenName);
+                    coll.gameObject.GetComponent<PlayerBehaviour>().SetHeldItem(orderedFood);
+                    gotFood = true;
+                }
 
             }
             else
@@ -46,7 +58,9 @@ public class KitchenBehaviour : MonoBehaviour {
     private IEnumerator FoodProcessing(float waitTime, string foodName)
     {
         foodReady = false;
+        gotFood = false;
         yield return new WaitForSeconds(waitTime);
         foodReady = true;
+        orderedFood = foodName;
     }
 }

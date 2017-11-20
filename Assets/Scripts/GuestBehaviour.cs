@@ -86,4 +86,8 @@ public class GuestBehaviour : MonoBehaviour {
     {
         guestName = name;
     }
+    public AnimatorStateInfo getState()
+    {
+        return animator.GetCurrentAnimatorStateInfo(0);
+    }
 }

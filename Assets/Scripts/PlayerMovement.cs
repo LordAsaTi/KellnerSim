@@ -21,4 +21,8 @@ public class PlayerMovement : MonoBehaviour {
     {
         agent.stoppingDistance = distance;
     }
+    public Vector3 getVelocity()
+    {
+        return agent.velocity;
+    }
 }

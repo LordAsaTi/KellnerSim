@@ -5,9 +5,11 @@ using UnityEngine;
 public class TitleScreenBackground : MonoBehaviour {
 
     private PlayerMovement playerMove;
-    private PlayerBehaviour playerBehav;
+    private Vector3 startPosi;
     private GameObject guest;
+    private GuestBehaviour guestBehav;
     public Transform kitchen;
+    public float waitGuest;
 
 	// Use this for initialization
 	private void Start () {
@@ -16,27 +18,48 @@ public class TitleScreenBackground : MonoBehaviour {
     private IEnumerator LateStart(float waitingTime)
     {
         yield return new WaitForSeconds(waitingTime);
-        GameObject player = GameObject.FindGameObjectWithTag("Player");
-        playerMove = player.GetComponent<PlayerMovement>();
-        playerBehav = player.GetComponent<PlayerBehaviour>();
+        playerMove = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerMovement>();
         guest = GameObject.FindGameObjectWithTag("Guest");
+        guestBehav = guest.GetComponent<GuestBehaviour>();
+        startPosi = playerMove.gameObject.transform.position;
         StartCoroutine(PlayerActions());
     }
     private IEnumerator PlayerActions()
     {
-        while (!guest.GetComponent<GuestBehaviour>().getState().IsName("Ordering"))
+        while (guestBehav.getState().IsName("SearchSeat")  || guestBehav.getState().IsName("Waiting"))
         {
             yield return null;
         }
         playerMove.SetStoppingDistance(1f);
         playerMove.GoToPoint(guest.transform.position);
-        while (playerMove.getVelocity() != Vector3.zero)
+        yield return new WaitForSeconds(1f);
+        while (isMoving())
         {
             yield return null;
         }
-        Debug.Log("fine so far");
+        guestBehav.GoToNextState("Ordered");
+        yield return new WaitForSeconds(waitGuest);
+        playerMove.GoToPoint(kitchen.position);
+        yield return new WaitForSeconds(1f);
+        while (isMoving())
+        {
+            yield return null;
+        }
+        yield return new WaitForSeconds(2f);
+        playerMove.GoToPoint(guest.transform.position);
+        yield return new WaitForSeconds(1f);
+        while (isMoving())
+        {
+            yield return null;
+        }
+        guestBehav.GoToNextState("Ready");
+        yield return new WaitForSeconds(waitGuest);
+        playerMove.GoToPoint(startPosi);
 
-        yield return null;
 
+    }
+    private bool isMoving()
+    {
+        return playerMove.getVelocity() != Vector3.zero;
     }
 }

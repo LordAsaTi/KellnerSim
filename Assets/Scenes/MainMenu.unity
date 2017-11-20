@@ -1829,7 +1829,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 331be57084aba4945ab1abeb11b233bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  kitchen: {fileID: 0}
+  kitchen: {fileID: 1598441199}
+  waitGuest: 1
 --- !u!4 &1196764495
 Transform:
   m_ObjectHideFlags: 0

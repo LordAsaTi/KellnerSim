@@ -86,8 +86,12 @@ public class GuestBehaviour : MonoBehaviour {
     {
         guestName = name;
     }
-    public AnimatorStateInfo getState()
+    public AnimatorStateInfo getState() //viellicht ein bool draus machen mit IsState(string stateName) mit gleihc isName vergleich?
     {
         return animator.GetCurrentAnimatorStateInfo(0);
+    }
+    public void GoToNextState(string triggerName)
+    {
+        animator.SetTrigger(triggerName);
     }
 }

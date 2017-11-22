@@ -13,7 +13,6 @@ public class GuestBehaviour : MonoBehaviour {
     public GameObject bubble;
     private string guestName;
     private string order;
-    float counter = 0;
 
     private void Awake () {
         agent = GetComponent<NavMeshAgent>();
@@ -34,8 +33,8 @@ public class GuestBehaviour : MonoBehaviour {
         {
             agent.SetDestination(exitPoint);
         }
-        bubble.transform.eulerAngles = new Vector3(0, -counter, 0);     //rotation works, but -transform.eulerAngles.y does not
-        counter++;
+        bubble.transform.localEulerAngles = new Vector3(0, -transform.localEulerAngles.y, 0);
+
         
 
     }

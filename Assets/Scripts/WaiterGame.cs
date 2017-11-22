@@ -11,6 +11,7 @@ public class WaiterGame : MonoBehaviour {
     public Transform[] tableArray;
     public GameObject guestPrefab;
     public Transform guestSpawnPoint;
+    public Transform exitPoint;
     public int guestspawns;
     public string[] foodArray;
     public string[] guestNames;
@@ -50,16 +51,17 @@ public class WaiterGame : MonoBehaviour {
         GameObject guest = Instantiate(guestPrefab, guestSpawnPoint);
         int chairInt = (int)Random.Range(0, chairArray.Length);
         int nameInt = (int)Random.Range(0, guestNames.Length);
-        Vector3 chairPosition = chairArray[CheckFree(chairInt, freeChair)].position;
+        Transform chairPosition = chairArray[CheckFree(chairInt, freeChair)];
 
         GuestBehaviour guestBehaviour = guest.GetComponent<GuestBehaviour>();
 
         guestBehaviour.SetChair(chairPosition);
-        guestBehaviour.tableTrans = GetClosestTable(tableArray, chairPosition);
+        guestBehaviour.SetTable(GetClosestTable(tableArray, chairPosition.position));
 
         guestBehaviour.SetOrder(foodArray[Random.Range(0, foodArray.Length)]);
 
         guestBehaviour.SetName(guestNames[CheckFree(nameInt, freeName)]);
+        guestBehaviour.SetExitPoint(exitPoint.position);
 
     }
 
@@ -102,6 +104,17 @@ public class WaiterGame : MonoBehaviour {
     public string[] GetFoodArray()
     {
         return foodArray;
+    }
+    public void ClearChair(Transform chair)
+    {
+        for(int i = 0; i < chairArray.Length; i++)
+        {
+            if(chair == chairArray[i])
+            {
+                freeChair[i] = true;
+                Debug.Log("IM FREE");
+            }
+        }
     }
 
 }

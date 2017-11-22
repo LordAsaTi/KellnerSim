@@ -6,7 +6,9 @@ using UnityEngine.AI;
 public class GuestBehaviour : MonoBehaviour {
 
     private NavMeshAgent agent;
-    public Transform tableTrans;
+    private Transform tableTrans;
+    private Transform chairTrans;
+    private Vector3 exitPoint;
     private Animator animator;
     public GameObject bubble;
     private string guestName;
@@ -28,15 +30,19 @@ public class GuestBehaviour : MonoBehaviour {
             StartCoroutine(Waiting(Random.Range(5, 15)));
             
         }
-
+        if(agent.velocity == Vector3.zero && animator.GetCurrentAnimatorStateInfo(0).IsName("Leave"))
+        {
+            agent.SetDestination(exitPoint);
+        }
         bubble.transform.eulerAngles = new Vector3(0, -counter, 0);     //rotation works, but -transform.eulerAngles.y does not
         counter++;
         
 
     }
-    public void SetChair(Vector3 destinitionPoint)
+    public void SetChair(Transform destinitionPoint)
     {
-        agent.SetDestination(destinitionPoint);
+        agent.SetDestination(destinitionPoint.position);
+        chairTrans = destinitionPoint;
     }
     private void LookAtTable()
     {
@@ -64,9 +70,12 @@ public class GuestBehaviour : MonoBehaviour {
             {
                 if (playerBehaviour.GetHeldItem() == order)
                 {
-                    animator.SetTrigger("Ready"); // nochmal überdenken -> hier müsste eigentlich ne coroutin Waiting() starten  also ein state später;
+                    animator.SetTrigger("GotFood");
+                    LookAtTable();
                     DialogueSystem.Instance.AddNewDialogue("Danke", guestName);
                     playerBehaviour.RemoveHeldItem();
+
+                    StartCoroutine(Waiting(Random.Range(5, 15)));
 
                 }
                 else
@@ -93,5 +102,17 @@ public class GuestBehaviour : MonoBehaviour {
     public void GoToNextState(string triggerName)
     {
         animator.SetTrigger(triggerName);
+    }
+    public void SetTable(Transform table)
+    {
+        tableTrans = table;
+    }
+    public void SetExitPoint(Vector3 exitPoint)
+    {
+        this.exitPoint = exitPoint;
+    }
+    public Transform getChair()
+    {
+        return chairTrans;
     }
 }

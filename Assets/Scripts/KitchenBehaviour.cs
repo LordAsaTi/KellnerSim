@@ -11,7 +11,7 @@ public class KitchenBehaviour : MonoBehaviour {
     private bool gotFood;
     private string kitchenName;
     private string orderedFood;
-    private float progress;
+    public float timeScale;
     public Transform progressBarBack;
     public Transform progressBarFront;
 
@@ -62,22 +62,20 @@ public class KitchenBehaviour : MonoBehaviour {
     {
         foodReady = false;
         gotFood = false;
-        for(int i = 0; i < waitTime* 4; i++)
+        float section = (1/ (waitTime*timeScale)) *(progressBarBack.transform.localPosition.x - progressBarFront.transform.localPosition.x);
+        for (int i = 0; i < waitTime* timeScale; i++)
         {
-            progress = (i+1) / (waitTime *4);
-            Debug.Log(progress);
-            ShowProgress(progress);
-            yield return new WaitForSeconds(1f/4);
+            ShowProgress((i + 1) / (waitTime * timeScale), section);
+            yield return new WaitForSeconds(1f/timeScale);
         }
         //yield return new WaitForSeconds(waitTime);
         foodReady = true;
         orderedFood = foodName;
         yield return null;
     }
-    private void ShowProgress(float progress)
+    private void ShowProgress(float progress, float portion)
     {
-        
-        progressBarFront.transform.localPosition = new Vector3((progressBarBack.transform.localPosition.x * progress) , progressBarFront.transform.localPosition.y, progressBarFront.transform.localPosition.z); //Translate(Vector3.right * scaler);
+        progressBarFront.transform.localPosition += new Vector3(portion, 0,0);
         progressBarFront.transform.localScale = new Vector3(progressBarBack.transform.localScale.x * progress, progressBarFront.transform.localScale.y, progressBarFront.transform.localScale.z);
         
     }

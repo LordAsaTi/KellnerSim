@@ -1250,7 +1250,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 522574848}
   m_LocalRotation: {x: -0.7071068, y: -0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: -1.37, y: 0, z: -0.01}
+  m_LocalPosition: {x: -0.37, y: 0, z: -0.01}
   m_LocalScale: {x: 0.01, y: 1.000001, z: 0.053830944}
   m_Children: []
   m_Father: {fileID: 1897687977}
@@ -2020,7 +2020,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 632474101}
   m_LocalRotation: {x: -0.7071068, y: -0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 1, y: 0, z: 0}
   m_LocalScale: {x: 0.2776625, y: 1, z: 0.053830944}
   m_Children: []
   m_Father: {fileID: 1897687977}
@@ -4343,6 +4343,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 17197c75a6e836a4eb487fc9edbf58dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  timeScale: 4
   progressBarBack: {fileID: 632474102}
   progressBarFront: {fileID: 522574849}
 --- !u!23 &1856973473
@@ -4634,7 +4635,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1897687976}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -3.08, y: 0.44, z: 4.91}
+  m_LocalPosition: {x: -4.08, y: 0.44, z: 4.91}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 632474102}

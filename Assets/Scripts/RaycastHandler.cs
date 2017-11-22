@@ -7,10 +7,12 @@ public class RaycastHandler : MonoBehaviour {
     private int floorMask;
     private int playerMask;
     private int guestMask;
+    private int kitchenMask;
     private Ray ray;
     private RaycastHit rayHit;
     private GameObject activePlayer;
     private PlayerMovement playerMove;
+    private Collider kitchenColl;
 
 
     // Use this for initialization
@@ -18,8 +20,10 @@ public class RaycastHandler : MonoBehaviour {
         floorMask = LayerMask.GetMask("Floor");
         playerMask = LayerMask.GetMask("Player");
         guestMask = LayerMask.GetMask("Guest");
+        kitchenMask = LayerMask.GetMask("Kitchen");
         activePlayer = GameObject.FindGameObjectWithTag("ActivePlayer");
         playerMove = activePlayer.GetComponent<PlayerMovement>();
+        kitchenColl = GameObject.Find("Kitchen").GetComponent<Collider>();
     }
 	
 	// Update is called once per frame
@@ -35,6 +39,10 @@ public class RaycastHandler : MonoBehaviour {
         if (Input.GetMouseButton(0))
         {
             ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        }
+        else
+        {
+            ray.direction = Vector3.up;
         }
 #else
         ray = Camera.main.ScreenPointToRay(Input.GetTouch(0).position);
@@ -67,8 +75,15 @@ public class RaycastHandler : MonoBehaviour {
             playerMove.SetStoppingDistance(0f);
             playerMove.GoToPoint(rayHit.point);
         }
+        else if (Physics.Raycast(ray, out rayHit, 100f, kitchenMask))
+        {
+            kitchenColl.enabled = false;
+
+            kitchenColl.enabled = true;
+        }
 
 
-        
+
+
     }
 }

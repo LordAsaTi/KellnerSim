@@ -1236,7 +1236,7 @@ GameObject:
   - component: {fileID: 522574852}
   - component: {fileID: 522574851}
   - component: {fileID: 522574850}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Front
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2006,7 +2006,7 @@ GameObject:
   - component: {fileID: 632474105}
   - component: {fileID: 632474104}
   - component: {fileID: 632474103}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Back
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4325,7 +4325,7 @@ GameObject:
   - component: {fileID: 1856973474}
   - component: {fileID: 1856973473}
   - component: {fileID: 1856973472}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Kitchen
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4343,7 +4343,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 17197c75a6e836a4eb487fc9edbf58dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timeScale: 4
+  timeScale: 100
+  foodTime: 1
   progressBarBack: {fileID: 632474102}
   progressBarFront: {fileID: 522574849}
 --- !u!23 &1856973473
@@ -4621,7 +4622,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 1897687977}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: LoadingBar
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -12,8 +12,12 @@ public class KitchenBehaviour : MonoBehaviour {
     private string kitchenName;
     private string orderedFood;
     public float timeScale;
+    public float foodTime;
     public Transform progressBarBack;
     public Transform progressBarFront;
+    private Vector3 progressBarFrontStartPosi;
+    private Vector3 progressBarFrontStartScale;
+
 
     private void Start()
     {
@@ -22,6 +26,9 @@ public class KitchenBehaviour : MonoBehaviour {
         foodReady = true;
         gotFood = true;
         kitchenName = "Küche";
+
+        progressBarFrontStartPosi = progressBarFront.transform.position;
+        progressBarFrontStartScale = progressBarFront.transform.localScale;
     }
 
     private void OnTriggerEnter(Collider coll)
@@ -38,7 +45,7 @@ public class KitchenBehaviour : MonoBehaviour {
                     {
                         string foodname = foodChoices[i];
 
-                        DialogueSystem.Instance.AddChoice(foodname, delegate { StartCoroutine(FoodProcessing(8f, foodname)); DialogueSystem.Instance.CloseDialogue(); });
+                        DialogueSystem.Instance.AddChoice(foodname, delegate { StartCoroutine(FoodProcessing(foodTime, foodname)); DialogueSystem.Instance.CloseDialogue(); });
                     }
                     DialogueSystem.Instance.CreateChoice();
                 }
@@ -47,6 +54,7 @@ public class KitchenBehaviour : MonoBehaviour {
                     DialogueSystem.Instance.AddNewDialogue(orderedFood + lines[3],kitchenName);
                     coll.gameObject.GetComponent<PlayerBehaviour>().SetHeldItem(orderedFood);
                     gotFood = true;
+                    ResetProgress();
                 }
 
             }
@@ -78,5 +86,10 @@ public class KitchenBehaviour : MonoBehaviour {
         progressBarFront.transform.localPosition += new Vector3(portion, 0,0);
         progressBarFront.transform.localScale = new Vector3(progressBarBack.transform.localScale.x * progress, progressBarFront.transform.localScale.y, progressBarFront.transform.localScale.z);
         
+    }
+    private void ResetProgress()
+    {
+        progressBarFront.transform.position = progressBarFrontStartPosi;
+        progressBarFront.transform.localScale = progressBarFrontStartScale;
     }
 }

@@ -31,11 +31,11 @@ public class GuestBehaviour : MonoBehaviour {
 
         bubble.transform.localEulerAngles = new Vector3(0, -transform.localEulerAngles.y, 0);
 		
-        if(agent.velocity == Vector3.zero && GetState().IsName("SearchSeat"))    // Bedingung muss verfeinert werden!!
+        if(agent.velocity == Vector3.zero && GetState().IsName("SearchSeat") && transform.localPosition.z != 0)
         {
             LookAtTable();
             animator.SetTrigger("Seated");
-            StartCoroutine(Waiting(Random.Range(5, 15)));
+            StartCoroutine(Waiting(Random.Range(5, 15)));           //variable Numbers?
             
         }
         if (agent.velocity == Vector3.zero && GetState().IsName("Leave"))

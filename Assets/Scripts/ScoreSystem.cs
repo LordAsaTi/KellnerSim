@@ -33,5 +33,9 @@ public class ScoreSystem : MonoBehaviour {
             totalScore += foodPoints - angryState;
         }
     }
+    public int GetTotalScore()
+    {
+        return totalScore;
+    }
 
 }

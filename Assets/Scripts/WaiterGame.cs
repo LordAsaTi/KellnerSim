@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class WaiterGame : MonoBehaviour {
 
@@ -10,6 +11,8 @@ public class WaiterGame : MonoBehaviour {
     public Transform[] chairArray;
     public Transform[] tableArray;
     public GameObject guestPrefab;
+    public GameObject endscreen;
+    public Text scoreText;
     public Transform guestSpawnPoint;
     public Transform exitPoint;
     public int guestspawns;
@@ -115,6 +118,26 @@ public class WaiterGame : MonoBehaviour {
                 Debug.Log("IM FREE");
             }
         }
+        if (AllFree())
+        {
+            GameOver();
+        }
     }
-
+    private bool AllFree()
+    {
+        bool isFree = true;
+        for (int i = 0; i<freeChair.Length; i++)
+        {
+            if (!freeChair[i])
+            {
+                isFree = false;
+            }
+        }
+        return isFree;
+    }
+    private void GameOver()
+    {
+        endscreen.SetActive(true);
+        scoreText.text = ScoreSystem.Instance.GetTotalScore().ToString() + " €";
+    }
 }

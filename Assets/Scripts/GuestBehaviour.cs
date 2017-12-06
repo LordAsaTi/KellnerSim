@@ -38,9 +38,11 @@ public class GuestBehaviour : MonoBehaviour {
             StartCoroutine(Waiting(Random.Range(5, 15)));
             
         }
-        if(agent.velocity == Vector3.zero && GetState().IsName("Leave"))
+        if (agent.velocity == Vector3.zero && GetState().IsName("Leave"))
         {
             agent.SetDestination(exitPoint);
+
+            Debug.Log("so");
         }
         if (GetState().IsName("Ordering") || GetState().IsName("AngryWaiting") || GetState().IsName("AngryOrdering") || GetState().IsName("WaitingForFood"))
         {
@@ -138,8 +140,12 @@ public class GuestBehaviour : MonoBehaviour {
     {
         this.exitPoint = exitPoint;
     }
-    public Transform getChair()
+    public Transform GetChair()
     {
         return chairTrans;
+    }
+    public int GetAngerState()
+    {
+        return angerState;
     }
 }

@@ -6,6 +6,7 @@ public class ScoreSystem : MonoBehaviour {
     
     public static ScoreSystem Instance { get; set; }
     private int totalScore;
+    public int foodPoints;
 
 
     void Awake () {
@@ -21,5 +22,16 @@ public class ScoreSystem : MonoBehaviour {
             Instance = this;
         }
     }
-	
+    public void GuestScore(int angryState)
+    {
+        if(angryState >= 3)
+        {
+            totalScore += -angryState;
+        }
+        else
+        {
+            totalScore += foodPoints - angryState;
+        }
+    }
+
 }

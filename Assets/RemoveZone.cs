@@ -6,7 +6,12 @@ public class RemoveZone : MonoBehaviour {
 
 	private void OnTriggerEnter(Collider coll)
     {
-        WaiterGame.Instance.ClearChair(coll.GetComponent<GuestBehaviour>().getChair());
+        if(coll.GetComponent<GuestBehaviour>() != null)
+        {
+            WaiterGame.Instance.ClearChair(coll.GetComponent<GuestBehaviour>().GetChair());
+            ScoreSystem.Instance.GuestScore(coll.GetComponent<GuestBehaviour>().GetAngerState());
+
+        }
         Destroy(coll.gameObject);
     }
 }

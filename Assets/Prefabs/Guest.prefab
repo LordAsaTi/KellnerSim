@@ -287,8 +287,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 40b6f1be1e21dbc45b8e48a3e75d7cc8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tableTrans: {fileID: 0}
   bubble: {fileID: 1419188328259410}
+  angerTime: 20
 --- !u!135 &135013157322227518
 SphereCollider:
   m_ObjectHideFlags: 1

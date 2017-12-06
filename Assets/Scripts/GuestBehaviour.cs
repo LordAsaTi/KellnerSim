@@ -13,28 +13,51 @@ public class GuestBehaviour : MonoBehaviour {
     public GameObject bubble;
     private string guestName;
     private string order;
+    private float timeCounter;
+    private int angerState;
+    private bool angryTrigger;
+    public float angerTime;
 
     private void Awake () {
         agent = GetComponent<NavMeshAgent>();
         animator = GetComponent<Animator>();
-	}
+        angryTrigger = false;
+        timeCounter = 0f;
+        angerState = 0;
+    }
 	
 	
 	private void Update () {
+
+        bubble.transform.localEulerAngles = new Vector3(0, -transform.localEulerAngles.y, 0);
 		
-        if(agent.velocity == Vector3.zero && animator.GetCurrentAnimatorStateInfo(0).IsName("SearchSeat"))
+        if(agent.velocity == Vector3.zero && GetState().IsName("SearchSeat"))
         {
             LookAtTable();
             animator.SetTrigger("Seated");
             StartCoroutine(Waiting(Random.Range(5, 15)));
             
         }
-        if(agent.velocity == Vector3.zero && animator.GetCurrentAnimatorStateInfo(0).IsName("Leave"))
+        if(agent.velocity == Vector3.zero && GetState().IsName("Leave"))
         {
             agent.SetDestination(exitPoint);
         }
-        bubble.transform.localEulerAngles = new Vector3(0, -transform.localEulerAngles.y, 0);
+        if (GetState().IsName("Ordering") || GetState().IsName("AngryWaiting") || GetState().IsName("AngryOrdering") || GetState().IsName("WaitingForFood"))
+        {
+            timeCounter += Time.deltaTime;
+        }
 
+        if(timeCounter > angerTime && !angryTrigger)
+        {
+            angryTrigger = true;
+            angerState++;
+            animator.SetTrigger("Angry");
+        }
+        if(timeCounter > (2* angerTime))
+        {
+            angerState = 3;
+            animator.SetTrigger("Ready");
+        }
         
 
     }
@@ -50,8 +73,11 @@ public class GuestBehaviour : MonoBehaviour {
     private IEnumerator Waiting(float waitTime)
     {
         yield return new WaitForSeconds(waitTime);
+        timeCounter = 0f;
+        angryTrigger = false;
         animator.SetTrigger("Ready");
         Debug.Log("ready");
+
     }
 
     private void OnTriggerEnter(Collider coll)
@@ -60,12 +86,14 @@ public class GuestBehaviour : MonoBehaviour {
         {
             PlayerBehaviour playerBehaviour = coll.GetComponent<PlayerBehaviour>();
 
-            if (animator.GetCurrentAnimatorStateInfo(0).IsName("Ordering"))
+            if (GetState().IsName("Ordering") || GetState().IsName("AngryOrdering"))
             {
                 DialogueSystem.Instance.AddNewDialogue(order + ", bitte.", guestName);
+                timeCounter = 0f;
+                angryTrigger = false;
                 animator.SetTrigger("Ordered");
             }
-            else if (animator.GetCurrentAnimatorStateInfo(0).IsName("WaitingForFood"))
+            else if (GetState().IsName("WaitingForFood") || GetState().IsName("AngryWaiting"))
             {
                 if (playerBehaviour.GetHeldItem() == order)
                 {
@@ -94,7 +122,7 @@ public class GuestBehaviour : MonoBehaviour {
     {
         guestName = name;
     }
-    public AnimatorStateInfo getState() //viellicht ein bool draus machen mit IsState(string stateName) mit gleihc isName vergleich?
+    public AnimatorStateInfo GetState()
     {
         return animator.GetCurrentAnimatorStateInfo(0);
     }

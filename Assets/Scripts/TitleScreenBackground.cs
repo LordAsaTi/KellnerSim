@@ -26,7 +26,7 @@ public class TitleScreenBackground : MonoBehaviour {
     }
     private IEnumerator PlayerActions()
     {
-        while (guestBehav.getState().IsName("SearchSeat")  || guestBehav.getState().IsName("Waiting"))
+        while (guestBehav.GetState().IsName("SearchSeat")  || guestBehav.GetState().IsName("Waiting"))
         {
             yield return null;
         }

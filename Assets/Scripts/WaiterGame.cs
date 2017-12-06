@@ -16,10 +16,12 @@ public class WaiterGame : MonoBehaviour {
     public Transform guestSpawnPoint;
     public Transform exitPoint;
     public int guestspawns;
+    public float spawnTime;
     public string[] foodArray;
     public string[] guestNames;
     private bool[] freeName;
     private bool[] freeChair;
+    private int spawned;
 
     private void Start () {
         if (Instance != null && Instance != this)
@@ -42,13 +44,23 @@ public class WaiterGame : MonoBehaviour {
             freeChair[i] = true;
         }
 
-        for(int i = 0; i < guestspawns; i++)
-        {
-            SpawnGuest();
-        }
-    
+        spawned = 0;
+        StartCoroutine(SpawnBehaviour(spawnTime));
+        
     }
-	
+    private IEnumerator SpawnBehaviour(float spawnTime)
+    {
+        while(spawned < guestspawns)
+        {
+            yield return new WaitForSeconds(Random.Range(spawnTime, spawnTime+10));
+            if(FreeChairCount() > 0)
+            {
+                SpawnGuest();
+                spawned++;
+            }
+        }
+
+    }
     private void SpawnGuest()
     {
         GameObject guest = Instantiate(guestPrefab, guestSpawnPoint);
@@ -118,19 +130,19 @@ public class WaiterGame : MonoBehaviour {
                 Debug.Log("IM FREE");
             }
         }
-        if (AllFree())
+        if (FreeChairCount() == freeChair.Length && spawned == guestspawns)
         {
             GameOver();
         }
     }
-    private bool AllFree()
+    private int FreeChairCount()
     {
-        bool isFree = true;
+        int isFree = 0;
         for (int i = 0; i<freeChair.Length; i++)
         {
-            if (!freeChair[i])
+            if (freeChair[i])
             {
-                isFree = false;
+                isFree++;
             }
         }
         return isFree;

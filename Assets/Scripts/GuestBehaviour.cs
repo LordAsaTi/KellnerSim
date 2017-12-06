@@ -31,7 +31,7 @@ public class GuestBehaviour : MonoBehaviour {
 
         bubble.transform.localEulerAngles = new Vector3(0, -transform.localEulerAngles.y, 0);
 		
-        if(agent.velocity == Vector3.zero && GetState().IsName("SearchSeat"))
+        if(agent.velocity == Vector3.zero && GetState().IsName("SearchSeat"))    // Bedingung muss verfeinert werden!!
         {
             LookAtTable();
             animator.SetTrigger("Seated");
@@ -42,7 +42,7 @@ public class GuestBehaviour : MonoBehaviour {
         {
             agent.SetDestination(exitPoint);
 
-            Debug.Log("so");
+            Debug.Log("LeaveState und velocity = 0");
         }
         if (GetState().IsName("Ordering") || GetState().IsName("AngryWaiting") || GetState().IsName("AngryOrdering") || GetState().IsName("WaitingForFood"))
         {

@@ -3891,7 +3891,8 @@ MonoBehaviour:
   scoreText: {fileID: 1636214029}
   guestSpawnPoint: {fileID: 1526991098}
   exitPoint: {fileID: 1343437126}
-  guestspawns: 4
+  guestspawns: 13
+  spawnTime: 1
   foodArray:
   - Cola
   - Schnitzel
@@ -3902,6 +3903,22 @@ MonoBehaviour:
   - Hein
   - Gert
   - Bob
+  - Klaus
+  - Klaus
+  - Klaus
+  - Klaus
+  - Klaus
+  - Klaus
+  - Klaus
+  - Klaus
+  - Klaus
+  - Klaus
+  - Klaus
+  - Klaus
+  - Klaus
+  - Klaus
+  - Klaus
+  - Klaus
   - Klaus
 --- !u!4 &1496504225
 Transform:

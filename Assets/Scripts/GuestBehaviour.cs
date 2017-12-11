@@ -148,4 +148,12 @@ public class GuestBehaviour : MonoBehaviour {
     {
         return angerState;
     }
+    public string GetGuestName()
+    {
+        return guestName;
+    }
+    public string GetOrder()
+    {
+        return order;
+    }
 }

@@ -28,7 +28,7 @@ public class RaycastHandler : MonoBehaviour {
 	
 	// Update is called once per frame
 	private void Update () {
-        if(!DialogueSystem.Instance.dialogueActive)
+        if(!DialogueSystem.Instance.dialogueActive && !WaiterGame.Instance.gameOver)
         {
          GetInputPosition();
         }
@@ -81,9 +81,5 @@ public class RaycastHandler : MonoBehaviour {
 
             kitchenColl.enabled = true;
         }
-
-
-
-
     }
 }

@@ -7,11 +7,14 @@ public class WaiterGame : MonoBehaviour {
 
     public static WaiterGame Instance { get; set; }
 
-
+    
     public Transform[] chairArray;
     public Transform[] tableArray;
     public GameObject guestPrefab;
     public GameObject endscreen;
+    public GameObject detailsPanel;
+    public GameObject detailsPref;
+    public GameObject detailsContent;
     public Text scoreText;
     public Transform guestSpawnPoint;
     public Transform exitPoint;
@@ -22,6 +25,8 @@ public class WaiterGame : MonoBehaviour {
     private bool[] freeName;
     private bool[] freeChair;
     private int spawned;
+    public bool gameOver;
+    private bool showDetails;
 
     private void Start () {
         if (Instance != null && Instance != this)
@@ -32,7 +37,6 @@ public class WaiterGame : MonoBehaviour {
         {
             Instance = this;
         }
-
         freeName = new bool[guestNames.Length];
         for (int i = 0; i < freeName.Length; i++)
         {
@@ -45,6 +49,8 @@ public class WaiterGame : MonoBehaviour {
         }
 
         spawned = 0;
+        gameOver = false;
+        showDetails = false;
         StartCoroutine(SpawnBehaviour(spawnTime));
         
     }
@@ -149,7 +155,23 @@ public class WaiterGame : MonoBehaviour {
     }
     private void GameOver()
     {
+        gameOver = true;
         endscreen.SetActive(true);
         scoreText.text = ScoreSystem.Instance.GetTotalScore().ToString() + " €";
+        foreach(GuestBehaviour guest in ScoreSystem.Instance.GetGuestList())
+        {
+            AddGuestDetails(guest.GetGuestName(), ScoreSystem.Instance.GetGuestScore(guest.GetAngerState()).ToString());
+        }
+    }
+    public void ShowHideDetails()
+    {
+        showDetails = !showDetails;
+        detailsPanel.SetActive(showDetails);
+    }
+    private void AddGuestDetails(string guestName, string earnings)
+    {
+        GameObject detail = Instantiate(detailsPref, detailsContent.transform);
+        detail.transform.GetChild(0).GetComponent<Text>().text = guestName;
+        detail.transform.GetChild(1).GetComponent<Text>().text = earnings + " €";
     }
 }

@@ -6,12 +6,14 @@ public class ScoreSystem : MonoBehaviour {
     
     public static ScoreSystem Instance { get; set; }
     private int totalScore;
+    private List<GuestBehaviour> guests;
     public int foodPoints;
 
 
-    void Awake () {
+    private void Awake () {
 
         totalScore = 0;
+        guests = new List<GuestBehaviour>();
 
         if (Instance != null && Instance != this)
         {
@@ -24,18 +26,34 @@ public class ScoreSystem : MonoBehaviour {
     }
     public void GuestScore(int angryState)
     {
-        if(angryState >= 3)
-        {
-            totalScore += -angryState;
-        }
-        else
-        {
-            totalScore += foodPoints - angryState;
-        }
+        totalScore += GetGuestScore(angryState);
+    }
+    public void AddGuest(GuestBehaviour guestBehaviour)
+    {
+        guests.Add(guestBehaviour);
+    }
+    public List<GuestBehaviour> GetGuestList()
+    {
+        return guests;
     }
     public int GetTotalScore()
     {
         return totalScore;
+    }
+    public int GetGuestScore(int angryState)
+    {
+        int score;
+
+        if (angryState >= 3)
+        {
+            score = -angryState;
+        }
+        else
+        {
+            score = foodPoints - angryState;
+        }
+
+        return score;
     }
 
 }

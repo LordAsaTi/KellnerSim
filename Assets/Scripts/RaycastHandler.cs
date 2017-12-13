@@ -15,8 +15,8 @@ public class RaycastHandler : MonoBehaviour {
     private Collider kitchenColl;
 
 
-    // Use this for initialization
-    private void Start () {
+    private void Start ()
+    {
         floorMask = LayerMask.GetMask("Floor");
         playerMask = LayerMask.GetMask("Player");
         guestMask = LayerMask.GetMask("Guest");
@@ -26,8 +26,8 @@ public class RaycastHandler : MonoBehaviour {
         kitchenColl = GameObject.Find("Kitchen").GetComponent<Collider>();
     }
 	
-	// Update is called once per frame
-	private void Update () {
+	private void Update ()
+    {
         if(!DialogueSystem.Instance.dialogueActive && !WaiterGame.Instance.gameOver)
         {
          GetInputPosition();
@@ -52,7 +52,6 @@ public class RaycastHandler : MonoBehaviour {
         if(Physics.Raycast(ray, out rayHit, 100f, playerMask))
         {
             GameObject hitObject = rayHit.transform.gameObject;
-            Debug.Log("Dont Hit me");
             if (hitObject.tag == "Player")
             {
                 activePlayer.tag = "Player";

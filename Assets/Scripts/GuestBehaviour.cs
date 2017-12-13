@@ -18,7 +18,8 @@ public class GuestBehaviour : MonoBehaviour {
     private bool angryTrigger;
     public float angerTime;
 
-    private void Awake () {
+    private void Awake ()
+    {
         agent = GetComponent<NavMeshAgent>();
         animator = GetComponent<Animator>();
         angryTrigger = false;
@@ -27,7 +28,8 @@ public class GuestBehaviour : MonoBehaviour {
     }
 	
 	
-	private void Update () {
+	private void Update ()
+    {
 
         bubble.transform.localEulerAngles = new Vector3(0, -transform.localEulerAngles.y, 0);
 		
@@ -35,14 +37,12 @@ public class GuestBehaviour : MonoBehaviour {
         {
             LookAtTable();
             animator.SetTrigger("Seated");
-            StartCoroutine(Waiting(Random.Range(5, 15)));           //variable Numbers?
+            StartCoroutine(Waiting(Random.Range(5, 15)));
             
         }
         if (agent.velocity == Vector3.zero && GetState().IsName("Leave"))
         {
             agent.SetDestination(exitPoint);
-
-            Debug.Log("LeaveState und velocity = 0");
         }
         if (GetState().IsName("Ordering") || GetState().IsName("AngryWaiting") || GetState().IsName("AngryOrdering") || GetState().IsName("WaitingForFood"))
         {
@@ -78,7 +78,6 @@ public class GuestBehaviour : MonoBehaviour {
         timeCounter = 0f;
         angryTrigger = false;
         animator.SetTrigger("Ready");
-        Debug.Log("ready");
 
     }
 

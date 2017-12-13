@@ -76,7 +76,6 @@ public class KitchenBehaviour : MonoBehaviour {
             ShowProgress((i + 1) / (waitTime * timeScale), section);
             yield return new WaitForSeconds(1f/timeScale);
         }
-        //yield return new WaitForSeconds(waitTime);
         foodReady = true;
         orderedFood = foodName;
         yield return null;

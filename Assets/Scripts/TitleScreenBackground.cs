@@ -11,8 +11,8 @@ public class TitleScreenBackground : MonoBehaviour {
     public Transform kitchen;
     public float waitGuest;
 
-	// Use this for initialization
-	private void Start () {
+	private void Start ()
+    {
         StartCoroutine(LateStart(2));
 	}
     private IEnumerator LateStart(float waitingTime)

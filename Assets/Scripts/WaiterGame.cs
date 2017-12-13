@@ -28,7 +28,8 @@ public class WaiterGame : MonoBehaviour {
     public bool gameOver;
     private bool showDetails;
 
-    private void Start () {
+    private void Start ()
+    {
         if (Instance != null && Instance != this)
         {
             Destroy(gameObject);
@@ -133,7 +134,6 @@ public class WaiterGame : MonoBehaviour {
             if(chair == chairArray[i])
             {
                 freeChair[i] = true;
-                Debug.Log("IM FREE");
             }
         }
         if (FreeChairCount() == freeChair.Length && spawned == guestspawns)

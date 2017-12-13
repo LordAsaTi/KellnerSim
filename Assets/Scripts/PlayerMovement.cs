@@ -7,10 +7,10 @@ public class PlayerMovement : MonoBehaviour {
 
     private NavMeshAgent agent;
     
-    private void Start () {
+    private void Start ()
+    {
         agent = GetComponent<NavMeshAgent>();
     }
-
 
     public void GoToPoint(Vector3 point)
     {

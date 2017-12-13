@@ -8,9 +8,10 @@ public class RemoveZone : MonoBehaviour {
     {
         if(coll.GetComponent<GuestBehaviour>() != null)
         {
-            ScoreSystem.Instance.GuestScore(coll.GetComponent<GuestBehaviour>().GetAngerState());
-            ScoreSystem.Instance.AddGuest(coll.GetComponent<GuestBehaviour>());
-            WaiterGame.Instance.ClearChair(coll.GetComponent<GuestBehaviour>().GetChair());
+            GuestBehaviour guestBehav = coll.GetComponent<GuestBehaviour>();
+            ScoreSystem.Instance.GuestScore(guestBehav.GetAngerState());
+            ScoreSystem.Instance.AddGuest(guestBehav);
+            WaiterGame.Instance.ClearChair(guestBehav.GetChair());
 
         }
         Destroy(coll.gameObject);

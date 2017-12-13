@@ -10,7 +10,8 @@ public class ScoreSystem : MonoBehaviour {
     public int foodPoints;
 
 
-    private void Awake () {
+    private void Awake ()
+    {
 
         totalScore = 0;
         guests = new List<GuestBehaviour>();

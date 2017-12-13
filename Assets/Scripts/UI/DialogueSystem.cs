@@ -51,7 +51,6 @@ public class DialogueSystem : MonoBehaviour
 
     public void AddNewDialogue(string[] lines, string npcName)
     {
-        //stopMovement
         dialogueIndex = 0;
         dialogueLines = new List<string>(lines.Length);
         dialogueLines.AddRange(lines);
@@ -92,7 +91,6 @@ public class DialogueSystem : MonoBehaviour
             RemoveChoices();
         }
         dialoguePanel.SetActive(false);
-        //StopStartPlayerMovement(true);
         continueButton.gameObject.SetActive(true);
 
         dialogueActive = false;

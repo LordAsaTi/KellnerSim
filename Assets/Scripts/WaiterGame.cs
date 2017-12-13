@@ -57,6 +57,8 @@ public class WaiterGame : MonoBehaviour {
     }
     private IEnumerator SpawnBehaviour(float spawnTime)
     {
+        SpawnGuest();
+        spawned++;
         while(spawned < guestspawns)
         {
             yield return new WaitForSeconds(Random.Range(spawnTime, spawnTime+10));

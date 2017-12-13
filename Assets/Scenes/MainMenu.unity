@@ -2145,8 +2145,15 @@ MonoBehaviour:
   - {fileID: 817099834}
   guestPrefab: {fileID: 1550940867078288, guid: 0937032fa4ea10b42932800bbbd04f19,
     type: 2}
+  endscreen: {fileID: 0}
+  detailsPanel: {fileID: 0}
+  detailsPref: {fileID: 0}
+  detailsContent: {fileID: 0}
+  scoreText: {fileID: 0}
   guestSpawnPoint: {fileID: 680763316}
+  exitPoint: {fileID: 680763316}
   guestspawns: 1
+  spawnTime: 0
   foodArray:
   - Nada
   guestNames:
@@ -2158,6 +2165,7 @@ MonoBehaviour:
   - Heinz
   - Heinz
   - Heinz
+  gameOver: 0
 --- !u!4 &1253656039
 Transform:
   m_ObjectHideFlags: 0

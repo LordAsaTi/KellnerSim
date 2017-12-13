@@ -288,7 +288,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bubble: {fileID: 1419188328259410}
-  angerTime: 15
+  angerTime: 20
 --- !u!135 &135013157322227518
 SphereCollider:
   m_ObjectHideFlags: 1

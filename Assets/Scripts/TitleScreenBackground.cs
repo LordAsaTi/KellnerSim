@@ -13,7 +13,7 @@ public class TitleScreenBackground : MonoBehaviour {
 
 	private void Start ()
     {
-        StartCoroutine(LateStart(2));
+        StartCoroutine(LateStart(12));
 	}
     private IEnumerator LateStart(float waitingTime)
     {
@@ -52,10 +52,11 @@ public class TitleScreenBackground : MonoBehaviour {
         {
             yield return null;
         }
-        guestBehav.GoToNextState("Ready");
+        guestBehav.GoToNextState("GotFood");
         yield return new WaitForSeconds(waitGuest);
         playerMove.GoToPoint(startPosi);
-
+        yield return new WaitForSeconds(7f);
+        guestBehav.GoToNextState("Ready");
 
     }
     private bool isMoving()

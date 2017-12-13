@@ -114,6 +114,13 @@ public class GuestBehaviour : MonoBehaviour {
         }
         
     }
+    private void OnTriggerExit(Collider coll)
+    {
+        if(coll.tag == "ActivePlayer")
+        {
+            LookAtTable();
+        }
+    }
 
     public void SetOrder(string food)
     {

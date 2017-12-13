@@ -857,6 +857,7 @@ GameObject:
   m_Component:
   - component: {fileID: 367925532}
   - component: {fileID: 367925533}
+  - component: {fileID: 367925534}
   m_Layer: 5
   m_Name: Content
   m_TagString: Untagged
@@ -871,16 +872,16 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 367925531}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.3500061, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 154135846}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0}
-  m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: -230, y: 0.000004373491}
-  m_SizeDelta: {x: 460, y: -424.8}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0.000004373491}
+  m_SizeDelta: {x: 0, y: 300}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &367925533
 MonoBehaviour:
@@ -904,6 +905,19 @@ MonoBehaviour:
   m_ChildForceExpandHeight: 1
   m_ChildControlWidth: 1
   m_ChildControlHeight: 0
+--- !u!114 &367925534
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 367925531}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1741964061, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_HorizontalFit: 0
+  m_VerticalFit: 1
 --- !u!1 &416449897
 GameObject:
   m_ObjectHideFlags: 0
@@ -4614,6 +4628,11 @@ MonoBehaviour:
   - Pommes
   - Filet Minion
   - Tiramisu
+  - Rotwein
+  - Weisswein
+  - Steak (medium)
+  - Wasser
+  - Kartoffeln
   guestNames:
   - Hein
   - Gert
